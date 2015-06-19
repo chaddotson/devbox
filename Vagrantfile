@@ -1,5 +1,5 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+#-*- mode: ruby -*-
+#vi: set ft=ruby :
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -27,6 +27,12 @@ Vagrant.configure(2) do |config|
   # rabbitmq management plugin
   config.vm.network "forwarded_port", guest: 15672, host: 15672
   config.vm.network "forwarded_port", guest: 5672, host: 5672
+
+  config.vm.network "forwarded_port", guest: 6379, host: 6379
+
+  config.vm.provider :virtualbox do |vbox|
+    vbox.customize ["modifyvm", :id, "--memory", 1024]
+  end
 
 
   # Create a private network, which allows host-only access to the machine
@@ -74,6 +80,7 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
   config.vm.provision "shell", path: "provisoner.sh"
+
 
 
 end
